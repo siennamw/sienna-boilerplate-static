@@ -52,6 +52,11 @@ gulp.task('less', function () {
     );
 });
 
+// watch
+gulp.task('watch', function() {
+  gulp.watch('./sources/css/*.+(less|css)', ['less'])
+});
+
 /* Copy compiled CSS to build
  * -----------------------------------*/
 gulp.task('copyCSS', ['less'], function () {
@@ -87,15 +92,11 @@ gulp.task('copyImages', function () {
 
 /* Local Server
  * ---------------------------------- */
-gulp.task('serve', ['build'], function () {
+gulp.task('serve', ['build', 'watch'], function () {
     gulp.src('build')
         .pipe(webserver({
             port: '9090',
             livereload: true,
-            directoryListing: {
-                enable: true,
-                path: 'build'
-            },
             open: true
         })
     );
